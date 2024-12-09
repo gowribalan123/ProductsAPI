@@ -32,13 +32,17 @@ const addUser=async(req,res)=>{
 const login = async(req,res)=>{
     try{
         const {email,password}=req.body
+        console.log(email)
+        console.log(password)
         const user=await User.findOne({email:email})
         if(!user){
             return res.status(500).json({message:"User not found"})
 
         }
         const isValid=await bcrypt.compare(password,user.password)
+        console.log(isValid)
         if(!isValid){
+
             return res.status(500).json({message:"Invalid credentials"})
         }
         let payload={user:email}

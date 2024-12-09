@@ -3,15 +3,19 @@ const mongoose=require('mongoose')
 const productRouter=require('./routers/productRouter')
 const userRouter=require('./routers/userRouter')
 const jwt=require('jsonwebtoken')
+const cors=require('cors')
 require('dotenv').config()
 
 const app=express()
+const port=3001
+app.use(express.json())
+app.use(cors())
 
 app.get('/',(req,res)=>{
     res.send("Hello")
 
 })
-app.use(express.json())
+//app.use(express.json())
 
 app.post('/login',(req,res)=>{
     //Authenticate
