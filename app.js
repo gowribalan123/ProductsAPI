@@ -7,15 +7,17 @@ const cors=require('cors')
 require('dotenv').config()
 
 const app=express()
-const port=3001
+const port=process.env.PORT
 app.use(express.json())
 app.use(cors())
+
+const mongourl=process.env.MONGODB_URL
 
 app.get('/',(req,res)=>{
     res.send("Hello")
 
 })
-//app.use(express.json())
+ 
 
 app.post('/login',(req,res)=>{
     //Authenticate
@@ -24,7 +26,7 @@ app.post('/login',(req,res)=>{
   //  const username =req.body.username
     //const user={name:username}
 
-    //const secretKey=process.env.JWT_SECRET_KEY
+   // const secretKey=process.env.JWT_SECRET_KEY
     //const token=jwt.sign(user,secretKey)
     //res.json({accesstoken:token})
     
@@ -32,19 +34,24 @@ app.post('/login',(req,res)=>{
 app.use('/products',productRouter)
 app.use('/users',userRouter)
 
+
+
+
+
+main()
+
+.then(()=>console.log("Database connected"))
+.catch(err=>console.log(err));
+
 async function main(){
-    await mongoose.connect('mongodb+srv://gowribalan123:Indiaismy%40123@cluster0.tv1a7.mongodb.net/ProductDB');
+    await mongoose.connect(mongourl);
     
 }
 
-main()
-.then(()=>console.log("Database connected"))
-.catch(err=>console.log(err));
 
 const ProductData=require('./models/product')
 
 
 app.listen(3001,()=>{
     console.log("Server started")
-
 })
