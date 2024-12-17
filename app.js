@@ -5,7 +5,7 @@ const userRouter=require('./routers/userRouter')
 const jwt=require('jsonwebtoken')
 const cors=require('cors')
 require('dotenv').config()
-app.use(express.static('public'));
+ 
 const app=express()
 const port=process.env.PORT
 app.use(express.json())
